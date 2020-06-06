@@ -1,0 +1,29 @@
+html {
+    font-family: 'Raleway', sans-serif;
+    background: linear-gradient(#d8d4f2, #c4b2bc);
+    background-size: 100% 10px;
+}
+
+li {
+    list-style-type: none;
+}
+
+#delete {
+    padding-left: 8px;
+}
+
+body {
+    border: 5px black solid;
+    border-radius: 25px;
+    margin: 20px;
+
+}
+
+
+header {
+    margin: 30px;
+}
+.notes-content {
+    margin: 30px;
+    padding-right: 100px;
+}
