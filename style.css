@@ -15,8 +15,7 @@ li {
 body {
     border: 5px black solid;
     border-radius: 25px;
-    margin: 20px;
-
+    margin: 30px;
 }
 
 
@@ -25,5 +24,10 @@ header {
 }
 .notes-content {
     margin: 30px;
+    padding-right: 5px;
+}
+
+#notes-input {
     padding-right: 100px;
+    margin-right: 100px;
 }

@@ -28,21 +28,20 @@ function createNoteItem (inputText) {
     if (noteInput.value, isNaN(noteInput.value)) {
         parentNote.classList.remove('input-invalid')
         parentNote.classList.add('input-valid')
+        fetch (apiUrl, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'}, 
+            body: JSON.stringify({ item: inputText, created: moment().format() })
+        })
+        .then(() => {
+            noteInput.value = ''
+            renderNotes()
+        })
     } else {
         parentNote.classList.remove('input-valid')
         parentNote.classList.add('input-invalid')
         markNoteInvalid ()
-        // do not POST data if invalid...
     }
-    fetch (apiUrl, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'}, 
-        body: JSON.stringify({ item: inputText, created: moment().format() })
-    })
-    .then(() => {
-        noteInput.value = ''
-        renderNotes()
-    })
 }
 
 // 3. Render the notes list using data that has been posted to the server.
@@ -87,11 +86,27 @@ function deleteNoteItem (event) {
     }
 }
 
-// 5. Prevent POST if data is invalid
-function doNotPost () {
-    
+// 5. Add a way to edit/update the note once it is created. 
+// Add event listener for clicking the note to be able to edit it?
+// Fetch GET data and return it to the input-field?
+// Maybe add another icon to click on for editing?
+
+noteList.addEventListener('click', editNoteItem)
+
+function editNoteItem (event) {
+    //if you click on words, fetch GET apiURL
+    let targetNote = event.target
+    if (targetNote.matches ('#note-list')) {
+        let inputField = targetEl.parentElement.dataset.id
+        let noteToEdit = document.querySelector(`li[data-id='${inputField}']`)
+        fetch (`${apiUrl}/${inputField}`, {
+            method: 'GET'
+         })
+        .then(response => response.json())
+        .then(function () {
+            document.querySelector('.input-field').add(noteToEdit)
+        
+        })  
+    }
+
 }
-
-
-
-// 6. Add a way to edit/update the note once it is created. 
